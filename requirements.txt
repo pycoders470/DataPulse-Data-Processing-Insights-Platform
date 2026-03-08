@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+alembic
+pydantic
+python-jose
+passlib
+redis
+celery
+python-multipart
+slowapi
+structlog
+pytest
+httpx
+pytest-asyncio
