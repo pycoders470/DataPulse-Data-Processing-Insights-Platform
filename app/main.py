@@ -1,31 +1,19 @@
-from fastapi import FastAPI , APIRouter
-import uvicorn
+from fastapi import FastAPI
+from app.api import auth_routes, dataset_routes, job_routes, report_routes
 
-app = FastAPI()
-router = APIRouter()
+app = FastAPI(
+    title = 'DataPulse',
+    description = 'Asyncronous Data processing platform',
+    version = '1.0.0',
+)
 
-@app.get('/')
-async def root():
-    return "Welcome to DataPulse"
+
 @app.get('/health')
 async def health():
     return {'Health':'Health endpoint'}
 
-app.get('/auth')
-async def auth():
-    return "Auth router"
-
-app.get('/datasets')
-async def auth():
-    return "datasets router"
-
-app.get('/jobs')
-async def auth():
-    return "jobs router"
-
-app.get('/reports')
-async def auth():
-    return "reports router"
-
-if __name__ == "__main__":
-    uvicorn.run(app)
+# register routes
+app.include_router(router=auth_routes.router, prefix="/auth",tags=["Auth"])
+app.include_router(router=dataset_routes.router, prefix="/datasets", tags=["Datasets"])
+app.include_router(job_routes.router, prefix="/jobs", tags=["Jobs"])
+app.include_router(report_routes.router, prefix="/reports", tags=["Reports"])
